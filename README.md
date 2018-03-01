@@ -1,2 +1,0 @@
-# MyJournal
-Journal Web App
