@@ -5,6 +5,8 @@ body {
 }
 
 #title {
-    padding-top: 2em;
+    padding-top: .5em;
     text-align: center;
+    font-family: 'Journal';
+    font-size: 300%;
 }
