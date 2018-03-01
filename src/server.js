@@ -1,8 +1,8 @@
 const express = require('express')
 const app = express()
 
-app.get('/', function (req, res) {
-  res.send('Got a GET request')
+app.get('/api/hello', function (req, res) {
+  res.send({ express: 'Hello From Express' })
 })
 
 app.post('/', function (req, res) {
