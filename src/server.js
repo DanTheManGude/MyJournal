@@ -1,5 +1,8 @@
 const express = require('express')
 const app = express()
+var cors = require('cors')
+
+app.use(cors())
 
 var port = process.env.PORT || 3030;
 
