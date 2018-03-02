@@ -3,3 +3,7 @@
     font-family: 'Journal';
     src: url('./JOURNAL.ttf');
 }
+
+#title {
+    font-family: 'Journal';
+}
