@@ -8,7 +8,8 @@ export class APIStuff extends Component {
     }
 
     state = {
-        response: ''
+        response:<img id="loading" src="./DGS.png" alt="Loading" width="120" height="120" />
+
     };
 
     componentDidMount() {
@@ -27,10 +28,8 @@ export class APIStuff extends Component {
     render() {
         return (
             <div>
-              <p>
                 {this.state.response}
-              </p>
-          </div>
+            </div>
         );
     }
 }
