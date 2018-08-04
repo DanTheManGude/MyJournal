@@ -25,7 +25,7 @@ app.get('/api/hello', function (req, res) {
   res.send({ express: 'Hello From Express' })
 })
 
-app.get('/entries', function (req, res) {
+app.get('/api/entries', function (req, res) {
   res.send({ "entries" : placeHolderEntries})
 })
 
