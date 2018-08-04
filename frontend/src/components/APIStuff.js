@@ -47,8 +47,24 @@ export class APIStuff extends Component {
     }
 
     submitEntry(event) {
+        this.postEntry()
+              .then(res =>  console.log(res))
+              .catch(err => console.log(err));
 
         this.showEntries();
+    }
+
+    postEntry = async () => {
+        const response = await fetch(this.hostname + '/api/entries', {
+            method: 'POST',
+            body: JSON.stringify(this.state.newEntry),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        const body = await response.json();
+        if (response.status !== 200) throw Error(body.message);
+        return body;
     }
 
     handleTLDR(event) {
