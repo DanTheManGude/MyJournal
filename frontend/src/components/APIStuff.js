@@ -92,7 +92,6 @@ export class APIStuff extends Component {
                         )}
                     </div>
                 );
-                break;
             case "newEntry":
                 return (
                     <div>
@@ -107,7 +106,6 @@ export class APIStuff extends Component {
                         <button type="button" onClick={this.submitEntry} className="btn btn-success">Submit Entry</button>
                     </div>
                 );
-                break;
             default:
                 return (this.state.response);
         }

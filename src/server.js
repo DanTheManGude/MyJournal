@@ -36,6 +36,7 @@ app.post('/api/entries', function(req, res) {
     var tldr = req.body.tldr;
     var full = req.body.full;
 
+    console.log(req.body)
     res.send({"response" : 'yeet'});
 });
 
