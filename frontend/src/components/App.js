@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { NavBar } from './NavBar.js';
 import { APIStuff } from './APIStuff.js';
+import { Banner } from './Banner.js';
 
 class App extends Component {
   render() {
@@ -21,6 +22,7 @@ class App extends Component {
           <div className="row">
             <div className="col-lg-12">
               <h2 id="title" className="mt-5">MyJournal</h2>
+              <Banner />
               <APIStuff />
             </div>
           </div>

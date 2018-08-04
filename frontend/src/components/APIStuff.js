@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { EntryBlurb } from './EntryBlurb.js';
+import { store } from '../index.js';
 
 export class APIStuff extends Component {
     constructor(props) {
@@ -12,7 +13,7 @@ export class APIStuff extends Component {
         this.handleFull = this.handleFull.bind(this);
         this.submitEntry = this.submitEntry.bind(this);
         this.showEntries = this.showEntries.bind(this);
-
+        this.afterEntry = this.afterEntry.bind(this);
 
         this.hostname = (process.env.NODE_ENV === 'production') ? '//myjournal-backend.herokuapp.com' : '//localhost:3030';
     }
@@ -49,7 +50,16 @@ export class APIStuff extends Component {
               .catch(err => console.log(err));
         this.setState({"status" : "loading"})
 
-        setTimeout(this.showEntries, 3000);
+        setTimeout(this.afterEntry, 3000);
+    }
+
+    afterEntry() {
+        this.showEntries();
+        store.dispatch({
+            type: 'ADD_BANNER',
+            message: "Successfully entered a new Entry",
+            'kind': 'alert-success'
+        });
     }
 
     postEntry = async () => {
