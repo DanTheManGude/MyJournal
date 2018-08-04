@@ -4,6 +4,10 @@ import { EntryBlurb } from './EntryBlurb.js';
 export class APIStuff extends Component {
     constructor(props) {
         super(props);
+        this.NewEntry = this.NewEntry.bind(this);
+        this.handleTLDR = this.handleTLDR.bind(this);
+        this.handleFull = this.handleFull.bind(this);
+
 
         this.hostname = (process.env.NODE_ENV === 'production') ? '//myjournal-backend.herokuapp.com' : '//localhost:3030';
     }
@@ -26,12 +30,36 @@ export class APIStuff extends Component {
         return body;
     };
 
+    NewEntry(event) {
+        this.setState({"response" : "newEntry"})
+        this.setState({"newEntry" : {
+            "time" : (new Date()).getTime(),
+            "tldr" : "",
+            "full" : ""
+        }})    }
+
+    submitEntry(event) {
+
+    }
+
+    handleTLDR(event) {
+        this.setState({"newEntry" : {...this.state.newEntry,
+            "tldr" : event.target.value
+        }})
+    }
+
+    handleFull(event){
+        this.setState({"newEntry" : {...this.state.newEntry,
+            "full" : event.target.value
+        }})
+    }
+
     render() {
         switch (this.state.response) {
             case "entries":
-            console.log(this.state)
                 return (
                     <div>
+                        <button type="button" onClick={this.NewEntry} className="btn btn-success">New Entry</button>
                         {this.state.entries.map(entry =>
                             <li key={entry.time}>
                                 <EntryBlurb state={entry}/>
@@ -40,8 +68,22 @@ export class APIStuff extends Component {
                     </div>
                 );
                 break;
+            case "newEntry":
+                return (
+                    <div>
+                        {/*Edit form*/}
+                        <div className="form-group">
+                            <label className="control-label">TLDR: </label>
+                            <input type="text" className="form-control" value={this.state.newEntry.tldr} placeholder="1 line description" onChange={this.handleTLDR}/>
+                            <label className="control-label">Full Entry: </label>
+                            <input type="text" className="form-control" value={this.state.newEntry.full} placeholder="Full entry here" onChange={this.handleFull}/>
+                        </div>
+                        <button type="button" onClick={this.submitEntry} className="btn btn-success">Submit Entry</button>
+                    </div>
+                );
+                break;
             default:
-                return ("wat");
+                return (this.state.response);
         }
     }
 }
