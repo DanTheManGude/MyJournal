@@ -32,24 +32,21 @@ app.get('/api/entries', function (req, res) {
 })
 
 app.post('/api/entries', function(req, res) {
-    var time = req.body.time;
-    var tldr = req.body.tldr;
-    var full = req.body.full;
-
     console.log(req.body)
+
+    placeHolderEntries.push({
+        "time" : req.body.time,
+        "date" : "some made up date",
+        "tldr" : req.body.tldr,
+        "full" : req.body.full
+    });
     res.send({"response" : 'yeet'});
 });
 
-app.post('/', function (req, res) {
-  res.send('Got a POST request')
-})
+app.delete('/api', function (req, res) {
+    console.log(req.body)
 
-app.put('/user', function (req, res) {
-  res.send('Got a PUT request at /user')
-})
-
-app.delete('/user', function (req, res) {
-  res.send('Got a DELETE request at /user')
+    res.send('Got a DELETE request at /api')
 })
 
 app.listen(port);

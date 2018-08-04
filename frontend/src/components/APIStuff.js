@@ -5,6 +5,8 @@ export class APIStuff extends Component {
     constructor(props) {
         super(props);
 
+        this.state = {"status" : "loading"};
+
         this.NewEntry = this.NewEntry.bind(this);
         this.handleTLDR = this.handleTLDR.bind(this);
         this.handleFull = this.handleFull.bind(this);
@@ -15,18 +17,13 @@ export class APIStuff extends Component {
         this.hostname = (process.env.NODE_ENV === 'production') ? '//myjournal-backend.herokuapp.com' : '//localhost:3030';
     }
 
-    state = {
-        response:<img id="loading" src="./DGS.png" alt="Loading" width="120" height="120" />
-
-    };
-
     componentDidMount() {
         this.showEntries();
     }
 
     showEntries(){
         this.callApi()
-          .then(res => this.setState({"response" : "entries", "entries" : res.entries}))
+          .then(res => this.setState({"status" : "entries", "entries" : res.entries}))
           .catch(err => console.log(err));
     }
 
@@ -38,7 +35,7 @@ export class APIStuff extends Component {
     };
 
     NewEntry(event) {
-        this.setState({"response" : "newEntry"})
+        this.setState({"status" : "newEntry"})
         this.setState({"newEntry" : {
             "time" : (new Date()).getTime(),
             "tldr" : "",
@@ -50,8 +47,9 @@ export class APIStuff extends Component {
         this.postEntry()
               .then(res =>  console.log(res))
               .catch(err => console.log(err));
+        this.setState({"status" : "loading"})
 
-        this.showEntries();
+        setTimeout(this.showEntries, 3000);
     }
 
     postEntry = async () => {
@@ -80,7 +78,7 @@ export class APIStuff extends Component {
     }
 
     render() {
-        switch (this.state.response) {
+        switch (this.state.status) {
             case "entries":
                 return (
                     <div>
@@ -106,8 +104,10 @@ export class APIStuff extends Component {
                         <button type="button" onClick={this.submitEntry} className="btn btn-success">Submit Entry</button>
                     </div>
                 );
+            case "loading":
+                return (<img id="loading" src="./DGS.png" alt="Loading" width="120" height="120" />);
             default:
-                return (this.state.response);
+                return (<p>Something went wrong :(</p>);
         }
     }
 }
