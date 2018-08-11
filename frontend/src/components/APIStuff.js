@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { EntryBlurb } from './EntryBlurb.js';
 import { store } from '../index.js';
 const axios = require('axios');
 
