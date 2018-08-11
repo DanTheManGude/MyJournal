@@ -56,7 +56,7 @@ export class APIStuff extends Component {
         this.showEntries();
         store.dispatch({
             type: 'ADD_BANNER',
-            message: "Successfully entered a new Entry",
+            message: "Successfully created a new Entry",
             'kind': 'alert-success'
         });
     }

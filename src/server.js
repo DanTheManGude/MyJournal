@@ -34,9 +34,18 @@ app.get('/api/entries', function (req, res) {
 app.post('/api/entries', function(req, res) {
     console.log(req.body)
 
+    var timeOptions = {
+        weekday : 'long',
+        year : 'numeric',
+        month : 'long',
+        day : 'numeric',
+        hour : 'numeric',
+        minute : 'numeric',
+        timeZoneName : 'short'
+    }
     placeHolderEntries.push({
         "time" : req.body.time,
-        "date" : "some made up date",
+        "date" : new Date(req.body.time).toLocaleString('en-US', timeOptions),
         "tldr" : req.body.tldr,
         "full" : req.body.full
     });
