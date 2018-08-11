@@ -40,7 +40,10 @@ app.post('/api/entries', function(req, res) {
         "tldr" : req.body.tldr,
         "full" : req.body.full
     });
-    res.send({"response" : 'yeet'});
+    res.send({
+        "status" : 200,
+        "data" : "Successfully recieved new entry"
+    });
 });
 
 app.delete('/api', function (req, res) {

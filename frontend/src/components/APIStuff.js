@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { EntryBlurb } from './EntryBlurb.js';
 import { store } from '../index.js';
+const axios = require('axios');
 
 export class APIStuff extends Component {
     constructor(props) {
@@ -23,17 +24,17 @@ export class APIStuff extends Component {
     }
 
     showEntries(){
-        this.callApi()
-          .then(res => this.setState({"status" : "entries", "entries" : res.entries}))
-          .catch(err => console.log(err));
+        axios.get(this.hostname + '/api/entries')
+        .then(res => {
+            this.setState( {
+                "status" : "entries",
+                "entries" : res.data.entries
+            }
+        )})
+        .catch(err => {
+            console.log(err);
+        });
     }
-
-    callApi = async () => {
-        const response = await fetch(this.hostname + '/api/entries');
-        const body = await response.json();
-        if (response.status !== 200) throw Error(body.message);
-        return body;
-    };
 
     NewEntry(event) {
         this.setState({"status" : "newEntry"})
@@ -45,12 +46,17 @@ export class APIStuff extends Component {
     }
 
     submitEntry(event) {
-        this.postEntry()
-              .then(res =>  console.log(res))
-              .catch(err => console.log(err));
-        this.setState({"status" : "loading"})
-
-        setTimeout(this.afterEntry, 3000);
+        axios({
+            method: 'post',
+            url: this.hostname + '/api/entries',
+            data: this.state.newEntry
+        }).then(res => {
+            //console.log(res.data);
+            this.afterEntry();
+        })
+        .catch(err => {
+            console.log(err);
+        });
     }
 
     afterEntry() {
@@ -60,19 +66,6 @@ export class APIStuff extends Component {
             message: "Successfully entered a new Entry",
             'kind': 'alert-success'
         });
-    }
-
-    postEntry = async () => {
-        const response = await fetch(this.hostname + '/api/entries', {
-            method: 'POST',
-            body: JSON.stringify(this.state.newEntry),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        const body = await response.json();
-        if (response.status !== 200) throw Error(body.message);
-        return body;
     }
 
     handleTLDR(event) {
