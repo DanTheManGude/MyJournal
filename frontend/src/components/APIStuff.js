@@ -31,8 +31,20 @@ export class APIStuff extends Component {
 
     newEntry = () => {
         this.setState({"status" : "newEntry"})
+        var timeOptions = {
+            weekday : 'long',
+            year : 'numeric',
+            month : 'long',
+            day : 'numeric',
+            hour : 'numeric',
+            minute : 'numeric',
+            timeZoneName : 'short'
+        }
+        var time = new Date().getTime();
+        var date = new Date(time).toLocaleString('en-US', timeOptions);
         this.setState({"newEntry" : {
-            "time" : (new Date()).getTime(),
+            "time" : time,
+            "date" : date,
             "tldr" : "",
             "full" : ""
         }})

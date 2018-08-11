@@ -32,21 +32,7 @@ app.get('/api/entries', function (req, res) {
 })
 
 app.post('/api/entries', function(req, res) {
-        var timeOptions = {
-        weekday : 'long',
-        year : 'numeric',
-        month : 'long',
-        day : 'numeric',
-        hour : 'numeric',
-        minute : 'numeric',
-        timeZoneName : 'short'
-    }
-    placeHolderEntries.unshift({
-        "time" : req.body.time,
-        "date" : new Date(req.body.time).toLocaleString('en-US', timeOptions),
-        "tldr" : req.body.tldr,
-        "full" : req.body.full
-    });
+    placeHolderEntries.unshift( req.body );
     res.send({
         "status" : 200,
         "data" : "Successfully recieved new entry"
