@@ -86,6 +86,10 @@ export class APIStuff extends Component {
         }})
     }
 
+    handleBlurb = (time) => {
+        console.log(time);
+    }
+
     render() {
         switch (this.state.status) {
             case "entries":
@@ -94,7 +98,12 @@ export class APIStuff extends Component {
                         <button type="button" onClick={this.newEntry} className="btn btn-success">New Entry</button>
                         {this.state.entries.map(entry =>
                             <li key={entry.time}>
-                                <EntryBlurb state={entry}/>
+                                <span>
+                                    {entry.date}
+                                    <button className="btn btn-link blurb" onClick={this.handleBlurb.bind(null, entry.time)}>
+                                        <strong>{entry.tldr}</strong>
+                                    </button>
+                                </span>
                             </li>
                         )}
                     </div>

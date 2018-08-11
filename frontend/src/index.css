@@ -11,6 +11,23 @@ body {
     font-size: 300%;
 }
 
+/*pointer styles */
+.pointer, .btn, a {
+    cursor: pointer;
+}
+.default {
+    cursor: default;
+}
+
+.blurb {
+    color: #000;
+}
+
+.blurb:hover {
+    color: #06C;
+    text-decoration: none;
+}
+
 #loading {
     position: absolute;
     top: 50%;
