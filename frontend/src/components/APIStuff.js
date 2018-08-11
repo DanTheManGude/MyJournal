@@ -9,13 +9,6 @@ export class APIStuff extends Component {
 
         this.state = {"status" : "loading"};
 
-        this.NewEntry = this.NewEntry.bind(this);
-        this.handleTLDR = this.handleTLDR.bind(this);
-        this.handleFull = this.handleFull.bind(this);
-        this.submitEntry = this.submitEntry.bind(this);
-        this.showEntries = this.showEntries.bind(this);
-        this.afterEntry = this.afterEntry.bind(this);
-
         this.hostname = (process.env.NODE_ENV === 'production') ? '//myjournal-backend.herokuapp.com' : '//localhost:3030';
     }
 
@@ -23,7 +16,7 @@ export class APIStuff extends Component {
         this.showEntries();
     }
 
-    showEntries(){
+    showEntries = () => {
         axios.get(this.hostname + '/api/entries')
         .then(res => {
             this.setState( {
@@ -36,7 +29,7 @@ export class APIStuff extends Component {
         });
     }
 
-    NewEntry(event) {
+    newEntry = () => {
         this.setState({"status" : "newEntry"})
         this.setState({"newEntry" : {
             "time" : (new Date()).getTime(),
@@ -45,7 +38,7 @@ export class APIStuff extends Component {
         }})
     }
 
-    submitEntry(event) {
+    submitEntry = () => {
         axios({
             method: 'post',
             url: this.hostname + '/api/entries',
@@ -59,7 +52,7 @@ export class APIStuff extends Component {
         });
     }
 
-    afterEntry() {
+    afterEntry = () => {
         this.showEntries();
         store.dispatch({
             type: 'ADD_BANNER',
@@ -68,13 +61,13 @@ export class APIStuff extends Component {
         });
     }
 
-    handleTLDR(event) {
+    handleTLDR = (event) => {
         this.setState({"newEntry" : {...this.state.newEntry,
             "tldr" : event.target.value
         }})
     }
 
-    handleFull(event){
+    handleFull = (event) => {
         this.setState({"newEntry" : {...this.state.newEntry,
             "full" : event.target.value
         }})
@@ -85,7 +78,7 @@ export class APIStuff extends Component {
             case "entries":
                 return (
                     <div>
-                        <button type="button" onClick={this.NewEntry} className="btn btn-success">New Entry</button>
+                        <button type="button" onClick={this.newEntry} className="btn btn-success">New Entry</button>
                         {this.state.entries.map(entry =>
                             <li key={entry.time}>
                                 <EntryBlurb state={entry}/>
