@@ -32,9 +32,7 @@ app.get('/api/entries', function (req, res) {
 })
 
 app.post('/api/entries', function(req, res) {
-    console.log(req.body)
-
-    var timeOptions = {
+        var timeOptions = {
         weekday : 'long',
         year : 'numeric',
         month : 'long',
