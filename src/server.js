@@ -43,7 +43,7 @@ app.post('/api/entries', function(req, res) {
         minute : 'numeric',
         timeZoneName : 'short'
     }
-    placeHolderEntries.push({
+    placeHolderEntries.unshift({
         "time" : req.body.time,
         "date" : new Date(req.body.time).toLocaleString('en-US', timeOptions),
         "tldr" : req.body.tldr,
