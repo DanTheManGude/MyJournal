@@ -45,19 +45,20 @@ export class APIStuff extends Component {
             data: this.state.newEntry
         }).then(res => {
             //console.log(res.data);
-            this.afterEntry();
+            store.dispatch({
+                type: 'ADD_BANNER',
+                message: "Successfully created a new Entry",
+                'kind': 'alert-success'
+            });
+            this.showEntries();
         })
         .catch(err => {
             console.log(err);
-        });
-    }
-
-    afterEntry = () => {
-        this.showEntries();
-        store.dispatch({
-            type: 'ADD_BANNER',
-            message: "Successfully created a new Entry",
-            'kind': 'alert-success'
+            store.dispatch({
+                type: 'ADD_BANNER',
+                message: "Something went wrong when trying to create a new Entry",
+                'kind': 'alert-danger'
+            });
         });
     }
 
