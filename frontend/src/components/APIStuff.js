@@ -19,7 +19,7 @@ export class APIStuff extends Component {
         axios.get(this.hostname + '/api/entries')
         .then(res => {
             this.setState( {
-                "status" : "entries",
+                "status" : "showEntries",
                 "entries" : res.data.entries
             }
         )})
@@ -41,7 +41,7 @@ export class APIStuff extends Component {
         }
         var time = new Date().getTime();
         var date = new Date(time).toLocaleString('en-US', timeOptions);
-        this.setState({"newEntry" : {
+        this.setState({"entry" : {
             "time" : time,
             "date" : date,
             "tldr" : "",
@@ -49,11 +49,11 @@ export class APIStuff extends Component {
         }})
     }
 
-    submitEntry = () => {
+    handleSubmit = () => {
         axios({
             method: 'post',
             url: this.hostname + '/api/entries',
-            data: this.state.newEntry
+            data: this.state.entry
         }).then(res => {
             //console.log(res.data);
             store.dispatch({
@@ -74,24 +74,34 @@ export class APIStuff extends Component {
     }
 
     handleTLDR = (event) => {
-        this.setState({"newEntry" : {...this.state.newEntry,
+        this.setState({"entry" : {...this.state.entry,
             "tldr" : event.target.value
         }})
     }
 
     handleFull = (event) => {
-        this.setState({"newEntry" : {...this.state.newEntry,
+        this.setState({"entry" : {...this.state.entry,
             "full" : event.target.value
         }})
     }
 
     handleBlurb = (time) => {
-        console.log(time);
+        this.setState({"status" : "viewEntry"})
+        this.setState({"entry" : {
+            "time" : time,
+            "date" : "use a GET to find this",
+            "tldr" : "use a GET to find this",
+            "full" : "use a GET to find this too"
+        }})
+    }
+
+    updateEntry = () => {
+        console.log("make POST req with time: " + this.state.entry.time)
     }
 
     render() {
         switch (this.state.status) {
-            case "entries":
+            case "showEntries":
                 return (
                     <div>
                         <button type="button" onClick={this.newEntry} className="btn btn-success">New Entry</button>
@@ -113,12 +123,26 @@ export class APIStuff extends Component {
                         {/*Edit form*/}
                         <div className="form-group">
                             <label className="control-label">TLDR: </label>
-                            <input type="text" className="form-control" value={this.state.newEntry.tldr} placeholder="1 line description" onChange={this.handleTLDR}/>
+                            <input type="text" className="form-control" value={this.state.entry.tldr} placeholder="1 line description" onChange={this.handleTLDR}/>
                             <label className="control-label">Full Entry: </label>
-                            <input type="text" className="form-control" value={this.state.newEntry.full} placeholder="Full entry here" onChange={this.handleFull}/>
+                            <input type="text" className="form-control" value={this.state.entry.full} placeholder="Full entry here" onChange={this.handleFull}/>
                         </div>
                         <button type="button" onClick={this.showEntries} className="btn btn-danger">Cancel</button>
-                        <button type="button" onClick={this.submitEntry} className="btn btn-success">Submit Entry</button>
+                        <button type="button" onClick={this.handleSubmit} className="btn btn-success">Submit Entry</button>
+                    </div>
+                );
+            case "viewEntry":
+                return (
+                    <div>
+                        {/*Update form*/}
+                        <div className="form-group">
+                            <label className="control-label">TLDR: </label>
+                            <input type="text" className="form-control" value={this.state.entry.tldr} placeholder="1 line description" onChange={this.handleTLDR}/>
+                            <label className="control-label">Full Entry: </label>
+                            <input type="text" className="form-control" value={this.state.entry.full} placeholder="Full entry here" onChange={this.handleFull}/>
+                        </div>
+                        <button type="button" onClick={this.showEntries} className="btn btn-danger">Cancel</button>
+                        <button type="button" onClick={this.updateEntry} className="btn btn-success">Update Entry</button>
                     </div>
                 );
             case "loading":
