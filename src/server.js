@@ -1,8 +1,9 @@
-const express = require('express')
-const app = express()
+const express = require('express');
+const app = express();
 var cors = require('cors')
 var bodyParser = require('body-parser');
-app.use(cors())
+
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -13,11 +14,11 @@ var placeHolderEntries = [
 
 app.get('/api/hello', function (req, res) {
     res.send({ express: 'Hello From Express' })
-})
+});
 
 app.get('/api/entries', function (req, res) {
     res.send({ "entries" : placeHolderEntries})
-})
+});
 
 app.get('/api/entry/:time', function (req, res) {
     var time = Number(req.params.time);
@@ -28,7 +29,7 @@ app.get('/api/entry/:time', function (req, res) {
         }
     });
     res.send({entry: entryFound});
-})
+});
 
 app.post('/api/entries', function(req, res) {
     placeHolderEntries.unshift( req.body );
@@ -50,7 +51,7 @@ app.delete('/api', function (req, res) {
     console.log(req.body)
 
     res.send('Got a DELETE request at /api')
-})
+});
 
 app.listen(port);
-console.log('Listening on port ' + port)
+console.log('Listening on port ' + port);

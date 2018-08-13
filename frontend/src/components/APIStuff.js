@@ -29,7 +29,7 @@ export class APIStuff extends Component {
     }
 
     newEntry = () => {
-        this.setState({"status" : "newEntry"})
+        this.setState({"status" : "newEntry"});
         var timeOptions = {
             weekday : 'long',
             year : 'numeric',
@@ -85,7 +85,7 @@ export class APIStuff extends Component {
     handleTLDR = (event) => {
         this.setState({"entry" : {...this.state.entry,
             "tldr" : event.target.value
-        }})
+        }});
     }
 
     handleFull = (event) => {
@@ -103,7 +103,7 @@ export class APIStuff extends Component {
                 "tldr" : res.data.entry.tldr,
                 "full" : res.data.entry.full
             }});
-            this.setState({"status" : "viewEntry"})
+            this.setState({"status" : "viewEntry"});
         })
         .catch(err => {
             console.log(err);

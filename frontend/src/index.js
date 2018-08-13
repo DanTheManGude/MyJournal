@@ -6,7 +6,7 @@ import registerServiceWorker from './registerServiceWorker';
 import { createStore } from 'redux';
 
 //reducer for the banner
-const initialMessage = <div>Test Intro Banner</div>
+const initialMessage = 'Test Intro Banner';
 
 const banners = (state = [{'message': initialMessage, 'type': 'alert-info'}], action) => {
     switch (action.type) {
