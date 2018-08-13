@@ -86,17 +86,43 @@ export class APIStuff extends Component {
     }
 
     handleBlurb = (time) => {
-        this.setState({"status" : "viewEntry"})
-        this.setState({"entry" : {
-            "time" : time,
-            "date" : "use a GET to find this",
-            "tldr" : "use a GET to find this",
-            "full" : "use a GET to find this too"
-        }})
+        axios.get(this.hostname + '/api/entry/' + time)
+        .then(res => {
+            this.setState({"entry" : {
+                "time" : time,
+                "date" : res.data.entry.date,
+                "tldr" : res.data.entry.tldr,
+                "full" : res.data.entry.full
+            }});
+            this.setState({"status" : "viewEntry"})
+        })
+        .catch(err => {
+            console.log(err);
+        });
     }
 
     updateEntry = () => {
-        console.log("make POST req with time: " + this.state.entry.time)
+        axios({
+            method: 'post',
+            url: this.hostname + '/api/entry/' + this.state.entry.time,
+            data: this.state.entry
+        }).then(res => {
+            //console.log(res.data);
+            store.dispatch({
+                type: 'ADD_BANNER',
+                message: "Successfully updated an Entry",
+                'kind': 'alert-success'
+            });
+            this.showEntries();
+        })
+        .catch(err => {
+            console.log(err);
+            store.dispatch({
+                type: 'ADD_BANNER',
+                message: "Something went wrong when trying to update an Entry",
+                'kind': 'alert-danger'
+            });
+        });
     }
 
     render() {
