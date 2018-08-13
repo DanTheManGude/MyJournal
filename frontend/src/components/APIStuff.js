@@ -50,11 +50,20 @@ export class APIStuff extends Component {
     }
 
     handleSubmit = () => {
+        if (this.state.entry.tldr === "") {
+            store.dispatch({
+                type: 'ADD_BANNER',
+                message: "Please input something for TLDR",
+                'kind': 'alert-danger'
+            });
+            return;
+        }
         axios({
             method: 'post',
             url: this.hostname + '/api/entries',
             data: this.state.entry
-        }).then(res => {
+        })
+        .then(res => {
             //console.log(res.data);
             store.dispatch({
                 type: 'ADD_BANNER',
@@ -102,6 +111,14 @@ export class APIStuff extends Component {
     }
 
     updateEntry = () => {
+        if (this.state.entry.tldr === "") {
+            store.dispatch({
+                type: 'ADD_BANNER',
+                message: "Please input something for TLDR",
+                'kind': 'alert-danger'
+            });
+            return;
+        }
         axios({
             method: 'post',
             url: this.hostname + '/api/entry/' + this.state.entry.time,
