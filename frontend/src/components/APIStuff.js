@@ -189,6 +189,8 @@ export class APIStuff extends Component {
                     <div>
                         {/*Edit form*/}
                         <div className="form-group">
+                            <label className="control-label">Date: {this.state.entry.date}</label>
+                            <br />
                             <label className="control-label">Subject: </label>
                             <input type="text" className="form-control" value={this.state.entry.tldr} placeholder="1 line description" onChange={this.handleTLDR}/>
                             <label className="control-label">Full Entry: </label>
@@ -203,6 +205,8 @@ export class APIStuff extends Component {
                     <div>
                         {/*Update form*/}
                         <div className="form-group">
+                            <label className="control-label">Date: {this.state.entry.date}</label>
+                            <br />
                             <label className="control-label">Subject: </label>
                             <input type="text" className="form-control" value={this.state.entry.tldr} placeholder="1 line description" onChange={this.handleTLDR}/>
                             <label className="control-label">Full Entry: </label>
