@@ -142,6 +142,30 @@ export class APIStuff extends Component {
         });
     }
 
+    deleteEntry = () => {
+        axios({
+            method: 'delete',
+            url: this.hostname + '/api/entry/' + this.state.entry.time,
+            data: this.state.entry
+        }).then(res => {
+            //console.log(res.data);
+            store.dispatch({
+                type: 'ADD_BANNER',
+                message: "Successfully deleted an Entry",
+                'kind': 'alert-success'
+            });
+            this.showEntries();
+        })
+        .catch(err => {
+            console.log(err);
+            store.dispatch({
+                type: 'ADD_BANNER',
+                message: "Something went wrong when trying to delete an Entry",
+                'kind': 'alert-danger'
+            });
+        });
+    }
+
     render() {
         switch (this.state.status) {
             case "showEntries":
@@ -170,7 +194,7 @@ export class APIStuff extends Component {
                             <label className="control-label">Full Entry: </label>
                             <input type="text" className="form-control" value={this.state.entry.full} placeholder="Full entry here" onChange={this.handleFull}/>
                         </div>
-                        <button type="button" onClick={this.showEntries} className="btn btn-danger">Cancel</button>
+                        <button type="button" onClick={this.showEntries} className="btn">Cancel</button>
                         <button type="button" onClick={this.handleSubmit} className="btn btn-success">Submit Entry</button>
                     </div>
                 );
@@ -184,8 +208,9 @@ export class APIStuff extends Component {
                             <label className="control-label">Full Entry: </label>
                             <input type="text" className="form-control" value={this.state.entry.full} placeholder="Full entry here" onChange={this.handleFull}/>
                         </div>
-                        <button type="button" onClick={this.showEntries} className="btn btn-danger">Cancel</button>
+                        <button type="button" onClick={this.showEntries} className="btn">Cancel</button>
                         <button type="button" onClick={this.updateEntry} className="btn btn-success">Update Entry</button>
+                        <button type="button" onClick={this.deleteEntry} className="btn btn-danger">Delete Entry</button>
                     </div>
                 );
             case "loading":

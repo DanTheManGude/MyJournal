@@ -47,10 +47,17 @@ app.post('/api/entry/:time', function(req, res) {
     res.send({ "message" : "Successfully updated entry" });
 });
 
-app.delete('/api', function (req, res) {
-    console.log(req.body)
-
-    res.send('Got a DELETE request at /api')
+app.delete('/api/entry/:time', function(req, res) {
+    var time = Number(req.params.time);
+    var index;
+    for (i = 0; i < placeHolderEntries.length; i++) {
+        if (placeHolderEntries[i].time === time) {
+            index = i;
+            break;
+        }
+    }
+    placeHolderEntries.splice(index, 1);
+    res.send({ "message" : "Successfully deleted entry" });
 });
 
 app.listen(port);
