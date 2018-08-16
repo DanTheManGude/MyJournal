@@ -45,7 +45,8 @@ export class APIStuff extends Component {
             "time" : time,
             "date" : date,
             "tldr" : "",
-            "full" : ""
+            "full" : "",
+            "attr" : []
         }})
     }
 
@@ -94,6 +95,12 @@ export class APIStuff extends Component {
         }})
     }
 
+    handleAttr = (event) => {
+        this.setState({"entry" : {...this.state.entry,
+            "attr" : event.target.value.split(",")
+        }})
+    }
+
     handleBlurb = (time) => {
         axios.get(this.hostname + '/api/entry/' + time)
         .then(res => {
@@ -101,7 +108,8 @@ export class APIStuff extends Component {
                 "time" : time,
                 "date" : res.data.entry.date,
                 "tldr" : res.data.entry.tldr,
-                "full" : res.data.entry.full
+                "full" : res.data.entry.full,
+                "attr" : res.data.entry.attr
             }});
             this.setState({"status" : "viewEntry"});
         })
@@ -195,6 +203,8 @@ export class APIStuff extends Component {
                             <input type="text" className="form-control" value={this.state.entry.tldr} placeholder="1 line description" onChange={this.handleTLDR}/>
                             <label className="control-label">Full Entry: </label>
                             <input type="text" className="form-control" value={this.state.entry.full} placeholder="Full entry here" onChange={this.handleFull}/>
+                            <label className="control-label">Attributes: </label>
+                            <input type="text" className="form-control" value={this.state.entry.attr} placeholder="CSV Attributes" onChange={this.handleAttr}/>
                         </div>
                         <button type="button" onClick={this.showEntries} className="btn">Cancel</button>
                         <button type="button" onClick={this.handleSubmit} className="btn btn-success">Submit Entry</button>
@@ -211,6 +221,8 @@ export class APIStuff extends Component {
                             <input type="text" className="form-control" value={this.state.entry.tldr} placeholder="1 line description" onChange={this.handleTLDR}/>
                             <label className="control-label">Full Entry: </label>
                             <input type="text" className="form-control" value={this.state.entry.full} placeholder="Full entry here" onChange={this.handleFull}/>
+                            <label className="control-label">Attributes: </label>
+                            <input type="text" className="form-control" value={this.state.entry.attr} placeholder="CSV Attributes" onChange={this.handleAttr}/>
                         </div>
                         <button type="button" onClick={this.showEntries} className="btn">Cancel</button>
                         <button type="button" onClick={this.updateEntry} className="btn btn-success">Update Entry</button>

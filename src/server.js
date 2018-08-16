@@ -10,10 +10,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 var port = process.env.PORT || 3030;
 
 var placeHolderEntries = [
-    {"time":1534272124247,"date":"Tuesday, August 14, 2018, 2:42 PM EDT","tldr":"FD Sub 3","full":"FD Full 3"},
-    {"time":1534272064244,"date":"Tuesday, August 14, 2018, 2:41 PM EDT","tldr":"FD Sub 2","full":"FD Full 2"},
-    {"time":1534272043877,"date":"Tuesday, August 14, 2018, 2:40 PM EDT","tldr":"FD Sub 1","full":"FD Full 1"},
-    {"time":1534271979577,"date":"Tuesday, August 14, 2018, 2:39 PM EDT","tldr":"FD Sub 0","full":"FD Full 0"}
+    {"time":1534272124247,"date":"Tuesday, August 14, 2018, 2:42 PM EDT","tldr":"FD Sub 3","full":"FD Full 3","attr":[]},
+    {"time":1534272064244,"date":"Tuesday, August 14, 2018, 2:41 PM EDT","tldr":"FD Sub 2","full":"FD Full 2","attr":[]},
+    {"time":1534272043877,"date":"Tuesday, August 14, 2018, 2:40 PM EDT","tldr":"FD Sub 1","full":"FD Full 1","attr":["at0","at1","at2"]},
+    {"time":1534271979577,"date":"Tuesday, August 14, 2018, 2:39 PM EDT","tldr":"FD Sub 0","full":"FD Full 0","attr":[]}
 ]
 
 app.get('/api/hello', function (req, res) {
@@ -46,6 +46,7 @@ app.post('/api/entry/:time', function(req, res) {
         if (entry.time === time) {
             entry.tldr = req.body.tldr;
             entry.full = req.body.full;
+            entry.attr = req.body.attr;
         }
     });
     res.send({ "message" : "Successfully updated entry" });
