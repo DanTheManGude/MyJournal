@@ -187,6 +187,7 @@ export class APIStuff extends Component {
                                     <button className="btn btn-link blurb" onClick={this.handleBlurb.bind(null, entry.time)}>
                                         <strong>{entry.tldr}</strong>
                                     </button>
+                                    <em>{entry.attr.toString()}</em>
                                 </span>
                             </li>
                         )}
