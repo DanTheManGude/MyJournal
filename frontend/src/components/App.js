@@ -21,7 +21,7 @@ class App extends Component {
         <div className="container default">
           <div className="row">
             <div className="col-lg-12">
-              <h2 id="title" className="mt-5">MyJournal</h2>
+              <h2 id="title" className="mt-5">My Journal</h2>
               <Banner />
               <APIStuff />
             </div>
