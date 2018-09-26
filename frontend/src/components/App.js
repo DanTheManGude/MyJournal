@@ -1,23 +1,23 @@
-import React, { Component } from 'react';
-import { NavBar } from './NavBar.js';
-import { APIStuff } from './APIStuff.js';
-import { Banner } from './Banner.js';
+import React from 'react'
+import { NavBar } from './NavBar.js' // eslint-disable-line
+import { APIStuff } from './APIStuff.js' // eslint-disable-line
+import { Banner } from './Banner.js' // eslint-disable-line
 
-class App extends Component {
-  render() {
+class App extends React.Component {
+  render () {
     return (
       <div className="App">
         <NavBar />
-        {/*outershell for the modal created by any of the link in the nav bar*/}
+        {/* outershell for the modal created by any of the link in the nav bar */}
         <div className="modal fade" id="NavModal" role="dialog">
           <div className="modal-dialog">
             <div className="modal-content">
-                <NavBar />
+              <NavBar />
             </div>
           </div>
         </div>
 
-        {/*main body of the page*/}
+        {/* main body of the page */}
         <div className="container default">
           <div className="row">
             <div className="col-lg-12">
@@ -28,8 +28,8 @@ class App extends Component {
           </div>
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
